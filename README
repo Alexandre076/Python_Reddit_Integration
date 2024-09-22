@@ -1,0 +1,65 @@
+# Reddit Integration Application
+
+This application fetches posts from specified subreddits and stores them in a SQLite database. It is containerized using Docker for easy deployment and scalability.
+
+## Prerequisites
+
+- Docker installed on your machine
+- Docker Compose installed (optional, but recommended for managing multiple containers)
+
+## Getting Started
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/Alexandre076/Python_Reddit_Integration.git
+cd <your-repository-directory>
+
+### 2. Build the Docker Image
+
+To build the Docker image, run:
+docker build -t py_reddit_integration .
+
+### 3. Edit the docker-compose.yml File
+Edit the docker-compose.yml file in the root of the project directory. 
+This file can be configured so the integration is able to deploy as many instances you would like. 
+Each instance can download a list of subreddits. Bellow is an example of how to do so:
+
+version: '3'
+services:
+  reddit_instance1:
+    image: py_reddit_integration
+    command: python main.py "computerscience,pics"
+    volumes:
+      - ${USERPROFILE}/reddit_db:/app/db
+  reddit_instance2:
+    image: py_reddit_integration
+    command: python main.py "brazil,funny"
+    volumes:
+      - ${USERPROFILE}/reddit_db:/app/db
+
+### 4. Run the Application
+To start the application with Docker Compose, use the following command:
+docker-compose up -d
+
+### 5. Check Running Containers
+To see the running containers, you can use:
+docker ps
+
+### 6. Stop the Application
+To stop all running instances, run:
+docker-compose down
+
+### 7. Accessing Logs
+To view logs from a specific instance, you can use:
+docker-compose logs reddit_instance1
+
+### 8. Persisting Data
+The SQLite database (reddit_tracker.db) and activity log (activity.log) will be stored in your user directory under reddit_db for persistence. You can find them in:
+C:\Users\<your-username>\reddit_db\
+
+### 9. Running the code locally without Docker.
+In case you prefer to run the code locally, without containers use the following guidelines:
+- Open the terminal on the root directory of this application.
+- Run the following command: python setup_and_run.py
+
