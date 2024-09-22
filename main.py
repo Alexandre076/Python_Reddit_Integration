@@ -50,6 +50,25 @@ except Exception as e:
 # Function to get subreddit posts paginated
 
 def get_subreddit_posts_paginated(subreddit, last_timestamp):
+    """
+    Retrieves paginated posts from a specified subreddit.
+
+    Args:
+        subreddit (str): The name of the subreddit.
+        last_timestamp (float): The timestamp of the last processed post.
+
+    Returns:
+        List[Dict[str, Union[str, float]]]: A list of dictionaries representing the new posts.
+            Each dictionary contains the following keys:
+                - 'title' (str): The title of the post.
+                - 'author' (str): The author of the post.
+                - 'created_utc' (float): The creation timestamp of the post.
+
+    Raises:
+        requests.exceptions.RequestException: If there is a network-related error.
+        Exception: If there is an unexpected error.
+
+    """
     url = f"https://www.reddit.com/r/{subreddit}.json"
     headers = {'User-agent': 'Mozilla/5.0'}
     
