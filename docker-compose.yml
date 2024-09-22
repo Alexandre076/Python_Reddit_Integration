@@ -1,0 +1,12 @@
+version: '3'
+services:
+  reddit_instance1:
+    image: py_reddit_integration
+    command: python main.py "computerscience,pics"
+    volumes:
+      - ${USERPROFILE}/reddit_db:/app/db
+  reddit_instance2:
+    image: py_reddit_integration
+    command: python main.py "brazil,funny"
+    volumes:
+      - ${USERPROFILE}/reddit_db:/app/db
